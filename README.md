@@ -1,1 +1,3 @@
-1- Esta versión es el punto inicial para el proyecto, no tiene nada, esta vacío.
+1- Esta versión tiene un versión preliminar del escenario.
+
+- Mauro.
