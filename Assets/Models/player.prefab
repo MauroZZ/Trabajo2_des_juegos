@@ -266,6 +266,7 @@ MonoBehaviour:
   verticalMove: 0.38
   player: {fileID: 558611820782284449}
   PlayerSpeed: 0
+  gravity: 9.8
   MainCamera: {fileID: 0}
 --- !u!1 &7682745174930510044
 GameObject:
@@ -393,8 +394,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8503943866359461270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.329, y: -1.7459865, z: -0.597}
-  m_LocalScale: {x: 1, y: 2.1962094, z: 1.2991999}
+  m_LocalPosition: {x: -0.52181, y: -2.0145, z: -0.597}
+  m_LocalScale: {x: 1.348, y: 3.1088912, z: 1.2991999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8193457243310744910}
@@ -612,11 +613,19 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3197
+  m_VersionIndex: 3206
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 03000000
+  m_SelectedEdges:
+  - a: 12
+    b: 13
+  - a: 14
+    b: 12
+  - a: 13
+    b: 15
+  - a: 15
+    b: 14
+  m_SelectedVertices: 0c0000000d0000000e0000000f000000
 --- !u!114 &1397167454642202795
 MonoBehaviour:
   m_ObjectHideFlags: 0
