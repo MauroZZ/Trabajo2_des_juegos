@@ -32,3 +32,12 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 - Mostrar información al finalizar el juego (tiempo utilizado y nombre del jugador).
 
 **Desarrollador:** Mauro.
+
+*---------------------------------------------------------------------------------------------------------------------*
+
+8. Desarrollo de la Estructura del Menú Principal y Ajustes (18 de Mayo de 2025 - Jonnathan): Se ha implementado la estructura inicial de la interfaz de usuario del juego, incluyendo:
+
+Escena del Menú Principal: Contiene botones para "Jugar" (carga la escena principal), "Ajustes" (navega a la escena de ajustes) y "Salir" (muestra un mensaje en consola).
+Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú principal.
+
+**Desarrollador:** Jonnathan.
