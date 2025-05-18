@@ -2254,6 +2254,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &502372039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6264275824845836625, guid: 227b1b6fae67878488e26720bd69bd3c, type: 3}
+  m_PrefabInstance: {fileID: 1087308661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &513840616
 Mesh:
   m_ObjectHideFlags: 0
@@ -3836,6 +3841,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3901,14 +3907,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.30526128, y: -0, z: -0, w: 0.95226866}
-  m_LocalPosition: {x: 0.51, y: 9.2, z: -5.59}
+  m_LocalRotation: {x: 0.085174546, y: 0.66515076, z: -0.090969, w: 0.7362367}
+  m_LocalPosition: {x: -3.798, y: 4.26, z: -0.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35.548, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.267, y: 84.04, z: -1.22}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3916,23 +3922,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a9bc7a4edac4ad45a2e428102c57771, type: 3}
+  m_Script: {fileID: 11500000, guid: ed6a7e09d47e9b743814253844142fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 0, y: 5, z: -30}
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 0
-  followSpeed: 10
-  rotationSpeed: 20
-  verticalRotationSpeed: 500
-  minVerticalAngle: -80
-  maxVerticalAngle: 80
-  collisionOffset: 0.2
-  tankTransform: {fileID: 0}
+  target: {fileID: 502372039}
+  distance: 5
+  height: 2
+  smoothSpeed: 0.125
+  rotationSpeed: 100
+  rotationThreshold: 0.1
+  targetOffset: {x: 0, y: 1.862, z: 0}
+  fixedAngleVertical: 26.04
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6a7e09d47e9b743814253844142fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 502372039}
+  distance: 8
+  height: 4
+  smoothSpeed: 0.125
+  rotationSpeed: 5
+  rotationThreshold: 0.1
+  targetOffset: {x: 0, y: 1.862, z: 0}
+  fixedAngleVertical: 26.04
 --- !u!1001 &1087308661
 PrefabInstance:
   m_ObjectHideFlags: 0

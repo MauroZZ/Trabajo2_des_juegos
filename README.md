@@ -14,6 +14,10 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 
 - **5. Implementación de la Función de Salto:** Se ha añadido la funcionalidad de salto para el personaje principal, permitiendo superar pequeños obstáculos o añadir dinamismo al movimiento. El salto se activa mediante la entrada designada (por defecto, la barra espaciadora).
 
+- **6. Implementación del Seguimiento de Cámara en Tercera Persona:** Se ha implementado un sistema para que la cámara siga al personaje principal desde una perspectiva en tercera persona, proporcionando una vista clara del jugador y su entorno. La distancia, altura y suavidad del seguimiento han sido configuradas.
+
+- **7. Corrección del Comportamiento de la Cámara al Moverse Hacia Atrás:** Se ha ajustado el script de la cámara en tercera persona para evitar que rote continuamente de forma errática cuando el jugador mantiene presionada la tecla para moverse hacia atrás. La rotación de la cámara ahora se basa en una entrada direccional significativa.
+
 **Próximos Pasos:**
 
 - Implementación de la IA básica para los 5 enemigos que perseguirán al jugador.
