@@ -3,7 +3,7 @@ using UnityEngine;
 public class TopDownCameraFollow : MonoBehaviour
 {
     public Transform target;         // El Transform del jugador. ¡ASIGNAR EN EL INSPECTOR!
-    public float height = 10f;      // Altura constante de la cámara.
+    public float height = 20f;      // Altura constante de la cámara.
     public float followSpeed = 5f;  // Suavidad con la que la cámara sigue al jugador.
 
     private Vector3 targetPosition;
