@@ -15,7 +15,8 @@ public class NavMeshController : MonoBehaviour
     {
         if (objetivo != null)
         {
-            agente.SetDestination(objetivo.position);
+            Vector3 objetivoEnPlano = new Vector3(objetivo.position.x, transform.position.y, objetivo.position.z);
+            agente.SetDestination(objetivoEnPlano);
         }
     }
 }

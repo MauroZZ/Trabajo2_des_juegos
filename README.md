@@ -25,10 +25,10 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 - **9. Creacion de nuevo mapa mas sencillo y modificacionde camra en una escena nueva:** Se ha creado un mapa mas sencillo acorde a lo requerido y se modifico la vista de la camara para que se vea desde arriba y siga al personaje desde arriba 
 
+- **10. creacion de enemigos, y que te puedan seguir con navmesh:** se hen creado 5 enemigos (esferas) que pueden seguir al jugador por el mapa utilizando navmesh
 
 **Próximos Pasos:**
 
-- Implementación de la IA básica para los 5 enemigos que perseguirán al jugador.
 - Creación de la meta a la que el jugador debe llegar.
 - Desarrollo del sistema de penalizaciones por colisión con los enemigos.
 - Implementación del límite de tiempo de 15 segundos y la condición de derrota por tiempo agotado.
@@ -47,3 +47,5 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 **Desarrollador:** Mauro.
 **Desarrollador:** Jonnathan.
+
+
