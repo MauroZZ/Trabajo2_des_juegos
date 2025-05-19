@@ -8,13 +8,17 @@ public class PlayerController : MonoBehaviour
     public float PlayerSpeed = 5f;
     public float gravity = 9.8f; // Valor positivo para la aceleración hacia abajo
     public float jumpHeight = 2f; // Altura del salto
+    [Tooltip("Altura de la cámara sobre el jugador.")]
+    public float cameraHeight = 10f;
+    [Tooltip("Suavidad con la que la cámara sigue al jugador (0-1).")]
+    [Range(0f, 1f)]
+    public float cameraFollowSpeed = 0.1f;
 
     private Vector3 playerInput;
     private Vector3 moveDirection;
     private Vector3 verticalVelocity;
     public Camera MainCamera;
-    private Vector3 camForward;
-    private Vector3 camRight;
+    private Vector3 cameraTargetPosition;
 
     void Start()
     {
@@ -29,6 +33,12 @@ public class PlayerController : MonoBehaviour
                 enabled = false;
             }
         }
+
+        // Establecer la rotación inicial de la cámara (cenital)
+        if (MainCamera != null)
+        {
+            MainCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        }
     }
 
     void Update()
@@ -39,16 +49,13 @@ public class PlayerController : MonoBehaviour
         playerInput = new Vector3(horizontalMove, 0, verticalMove);
         playerInput = Vector3.ClampMagnitude(playerInput, 1);
 
-        camDirection();
+        // Movimiento del jugador (sin depender de la rotación de la cámara)
+        moveDirection = playerInput * PlayerSpeed;
 
-        // Calcula la dirección del movimiento horizontal relativa a la cámara
-        moveDirection = playerInput.x * camRight + playerInput.z * camForward;
-        moveDirection = moveDirection.normalized * PlayerSpeed;
-
-        // Rotación del personaje
+        // Rotación del personaje (opcional, si quieres que mire hacia donde se mueve)
         if (moveDirection.magnitude > 0.1f)
         {
-            player.transform.LookAt(player.transform.position + moveDirection);
+            player.transform.LookAt(player.transform.position + new Vector3(moveDirection.x, 0f, moveDirection.z));
         }
 
         // Aplicar habilidades del jugador (incluido el salto)
@@ -61,20 +68,15 @@ public class PlayerController : MonoBehaviour
         Vector3 finalMove = moveDirection + verticalVelocity;
 
         player.Move(finalMove * Time.deltaTime);
-    }
 
-    void camDirection()
-    {
+        // Movimiento de la cámara
         if (MainCamera != null)
         {
-            camForward = MainCamera.transform.forward;
-            camRight = MainCamera.transform.right;
+            // Calcular la posición objetivo de la cámara
+            cameraTargetPosition = new Vector3(transform.position.x, cameraHeight, transform.position.z);
 
-            camForward.y = 0;
-            camRight.y = 0;
-
-            camForward = camForward.normalized;
-            camRight = camRight.normalized;
+            // Mover la cámara suavemente hacia la posición objetivo
+            MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, cameraTargetPosition, cameraFollowSpeed);
         }
     }
 
