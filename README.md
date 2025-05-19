@@ -27,11 +27,13 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 - **10. creacion de enemigos, y que te puedan seguir con navmesh:** se hen creado 5 enemigos (esferas) que pueden seguir al jugador por el mapa utilizando navmesh
 
+- **11. Si el enemigo toca 2 veces al player muere:** se ha implementado que el jugador pierda al se tocado
+
+- **12. Implementación del límite de tiempo de 15 segundos y la condición de derrota por tiempo agotado.:** se ha implementado el game over por tiempo (15 segundos)
+
 **Próximos Pasos:**
 
 - Creación de la meta a la que el jugador debe llegar.
-- Desarrollo del sistema de penalizaciones por colisión con los enemigos.
-- Implementación del límite de tiempo de 15 segundos y la condición de derrota por tiempo agotado.
 - Adición de efectos de sonido y música ambiental.
 - Implementación de partículas para la colisión inicial con los enemigos.
 - Desarrollo de la interfaz de usuario (menú interactivo, pantallas de GameOver, información final).

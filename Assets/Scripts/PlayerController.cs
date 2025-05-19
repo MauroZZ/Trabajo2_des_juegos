@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;// Necesario si quieres recargar la escena o ir al menú
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,6 +22,14 @@ public class PlayerController : MonoBehaviour
     public Camera MainCamera;
     private Vector3 cameraTargetPosition;
 
+    public float tiempoDeJuego = 15f; // Duración de la cuenta regresiva en segundos
+    private float tiempoRestante;
+    public GameObject pantallaGameOver; // Arrastra aquí tu GameObject de la pantalla de Game Over
+    public string mensajeGameOverPorTiempo = "¡Tiempo agotado!"; // Mensaje específico para Game Over por tiempo
+    public Text textoGameOver; // Referencia al Text de Game Over
+
+    private bool juegoTerminadoPorTiempo = false;
+
     void Start()
     {
         player = GetComponent<CharacterController>();
@@ -38,6 +48,16 @@ public class PlayerController : MonoBehaviour
         if (MainCamera != null)
         {
             MainCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+
+        tiempoRestante = tiempoDeJuego;
+        if (pantallaGameOver != null)
+        {
+            pantallaGameOver.SetActive(false); // Asegurar que esté desactivada al inicio
+        }
+        else
+        {
+            Debug.LogError("Error: No se ha asignado la pantalla de Game Over en el PlayerController.");
         }
     }
 
@@ -78,6 +98,19 @@ public class PlayerController : MonoBehaviour
             // Mover la cámara suavemente hacia la posición objetivo
             MainCamera.transform.position = Vector3.Lerp(MainCamera.transform.position, cameraTargetPosition, cameraFollowSpeed);
         }
+
+        if (!juegoTerminadoPorTiempo)
+        {
+            tiempoRestante -= Time.deltaTime;
+            // Mostrar el tiempo restante en la consola (redondeado a enteros para mejor legibilidad)
+            Debug.Log("Tiempo restante: " + Mathf.Round(tiempoRestante));
+
+            if (tiempoRestante <= 0)
+            {
+                tiempoRestante = 0; // Asegurar que no sea negativo
+                TerminarJuegoPorTiempo();
+            }
+        }
     }
 
     void ApplyGravity()
@@ -102,9 +135,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void TerminarJuegoPorTiempo()
     {
-        // FixedUpdate se usa generalmente para físicas, el movimiento con CharacterController
-        // suele ser más preciso en Update.
+        juegoTerminadoPorTiempo = true;
+        Debug.Log("¡Tiempo agotado! Game Over.");
+
+        // Activar la pantalla de Game Over
+        if (pantallaGameOver != null)
+        {
+            pantallaGameOver.SetActive(true);
+            if (textoGameOver != null)
+            {
+                textoGameOver.text = mensajeGameOverPorTiempo;
+            }
+        }
+
+        // Desactivar el movimiento del jugador
+        enabled = false; // Desactivar este script detendrá el movimiento
     }
 }
