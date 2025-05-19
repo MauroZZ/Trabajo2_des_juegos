@@ -61,9 +61,6 @@ public class PlayerController : MonoBehaviour
         Vector3 finalMove = moveDirection + verticalVelocity;
 
         player.Move(finalMove * Time.deltaTime);
-
-        Debug.Log("Velocidad vertical: " + verticalVelocity.y);
-        Debug.Log("Está en el suelo: " + player.isGrounded);
     }
 
     void camDirection()
