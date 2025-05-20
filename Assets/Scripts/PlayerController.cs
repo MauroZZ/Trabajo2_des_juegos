@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
     private float tiempoRestante;
     public GameObject pantallaGameOver;
     public string mensajeGameOverPorTiempo = "¡Tiempo agotado!";
-    public TMP_Text textoGameOver; // ¡CAMBIADO a TMP_Text!
+    public TMP_Text textoGameOver;
 
-    public TMP_Text temporizadorDisplay; // ¡CAMBIADO a TMP_Text!
+    public TMP_Text temporizadorDisplay;
 
     private bool juegoTerminadoPorTiempo = false;
 
@@ -46,14 +46,15 @@ public class PlayerController : MonoBehaviour
     public AudioSource musicaDeFondoSource;
 
     // --- Variables para la Victoria ---
-    public GameObject pantallaVictoria;
-    public TMP_Text tiempoFinalText;       // ¡CAMBIADO a TMP_Text!
-    public TMP_Text nombreJugadorFinalText; // ¡CAMBIADO a TMP_Text!
+    public GameObject pantallaVictoria; // El panel principal de victoria
+    public TMP_Text tiempoFinalText; // El TMP_Text para el tiempo
+    public TMP_Text nombreJugadorFinalText; // El TMP_Text para el nombre del jugador
 
     private float tiempoInicioJuego;
     private bool juegoGanado = false;
 
-    private const string NombreJugadorPrefKey = "NombreJugador";
+    // ¡CLAVE CORREGIDA! DEBE COINCIDIR CON LA DE MenuInicial.cs
+    private const string NombreJugadorPrefKey = "PlayerName"; //
 
 
     void Start()
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
         if (!juegoTerminadoPorTiempo && !juegoGanado)
         {
             horizontalMove = Input.GetAxis("Horizontal");
-            verticalMove = Input.GetAxis("Vertical"); // Aquí estaba "GetAxisVertical", debería ser "Vertical"
+            verticalMove = Input.GetAxis("Vertical");
 
             playerInput = new Vector3(horizontalMove, 0, verticalMove);
             playerInput = Vector3.ClampMagnitude(playerInput, 1);
@@ -213,7 +214,7 @@ public class PlayerController : MonoBehaviour
 
         if (pantallaGameOver != null)
         {
-            pantallaGameOver.SetActive(true);
+            pantallaGameOver.SetActive(true); //
             if (textoGameOver != null)
             {
                 textoGameOver.text = mensajeGameOverPorTiempo;
@@ -235,7 +236,7 @@ public class PlayerController : MonoBehaviour
     void TerminarJuegoPorVictoria()
     {
         juegoGanado = true;
-        enabled = false;
+        enabled = false; // Desactiva este script para detener el movimiento y la lógica del juego
 
         if (musicaDeFondoSource != null)
         {
@@ -245,11 +246,13 @@ public class PlayerController : MonoBehaviour
         float tiempoTranscurrido = Time.time - tiempoInicioJuego;
         Debug.Log("Tiempo utilizado: " + tiempoTranscurrido.ToString("F2") + " segundos.");
 
-        string nombreJugador = PlayerPrefs.GetString(NombreJugadorPrefKey, "Jugador Desconocido");
+        // Carga el nombre del jugador usando la clave corregida
+        string nombreJugador = PlayerPrefs.GetString(NombreJugadorPrefKey, "Jugador Desconocido"); //
+        Debug.Log("DEBUG (PlayerController): Nombre cargado para victoria: " + nombreJugador); // Log para verificar la carga
 
         if (pantallaVictoria != null)
         {
-            pantallaVictoria.SetActive(true);
+            pantallaVictoria.SetActive(true); // Activa el panel de victoria
 
             if (tiempoFinalText != null)
             {
@@ -257,12 +260,12 @@ public class PlayerController : MonoBehaviour
             }
             if (nombreJugadorFinalText != null)
             {
-                nombreJugadorFinalText.text = "Jugador: " + nombreJugador;
+                nombreJugadorFinalText.text = "Jugador: " + nombreJugador; // Asigna el nombre al texto
             }
         }
         else
         {
-            Debug.LogError("PlayerController: La pantalla de victoria no está asignada o sus textos no están asignados.");
+            Debug.LogError("PlayerController: La pantalla de victoria (GameObject) no está asignada en el Inspector.");
         }
     }
 }

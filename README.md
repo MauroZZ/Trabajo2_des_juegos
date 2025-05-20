@@ -19,10 +19,6 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 
 - **8. Desarrollo de la Estructura del Menú Principal y Ajustes (18 de Mayo de 2025 - Jonnathan):** Se ha implementado la estructura inicial de la interfaz de usuario del juego, incluyendo:
 
-Escena del Menú Principal: Contiene botones para "Jugar" (carga la escena principal), "Ajustes" (navega a la escena de ajustes) y "Salir" (muestra un mensaje en consola).
-Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú principal.
-
-
 - **9. Creacion de nuevo mapa mas sencillo y modificacionde camra en una escena nueva:** Se ha creado un mapa mas sencillo acorde a lo requerido y se modifico la vista de la camara para que se vea desde arriba y siga al personaje desde arriba 
 
 - **10. creacion de enemigos, y que te puedan seguir con navmesh:** se hen creado 5 enemigos (esferas) que pueden seguir al jugador por el mapa utilizando navmesh
@@ -40,10 +36,13 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 - **16. temporisador en pantalla:** se implemento un temporisador en pantalla
 
 - **17. controlador de volumen:** se implemento un controlador de volumen general.
+
+- **18. Guardado del nombre del jugador:** se implemento el poder guardar el nombre del jugador, y se muestra en la pantalla de victoria.
+
 **Próximos Pasos:**
 
 - Implementación de partículas para la colisión inicial con los enemigos.
-- Guardado del nombre del jugador, selección de dificultad.
+- selección de dificultad.
 - Utilización de los datos del menú en la escena del juego.
 - Mostrar información al finalizar el juego (nombre del jugador).
 
