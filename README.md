@@ -27,7 +27,7 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 - **10. creacion de enemigos, y que te puedan seguir con navmesh:** se hen creado 5 enemigos (esferas) que pueden seguir al jugador por el mapa utilizando navmesh
 
-- **11. Si el enemigo toca 2 veces al player muere:** se ha implementado que el jugador pierda al se tocado
+- **11. Si el enemigo toca 2 veces al player muere:** se ha implementado que el jugador pierda al ser tocado
 
 - **12. Implementación del límite de tiempo de 15 segundos y la condición de derrota por tiempo agotado.:** se ha implementado el game over por tiempo (15 segundos)
 
@@ -37,17 +37,15 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 - **15. meta y meu de Juego ganado.:** Se implemnto una meta que cuando el player llega este gana y aparece la pantalla de win
 
-- **13. temporisador en pantalla:** se implemento un temporisador en pantalla
+- **16. temporisador en pantalla:** se implemento un temporisador en pantalla
 
+- **17. controlador de volumen:** se implemento un controlador de volumen general.
 **Próximos Pasos:**
 
-- Creación de la meta a la que el jugador debe llegar.
-- Adición de efectos de sonido y música ambiental.
 - Implementación de partículas para la colisión inicial con los enemigos.
-- Desarrollo de la interfaz de usuario (menú interactivo, pantallas de GameOver, información final).
-- Guardado del nombre del jugador, selección de dificultad y control de volumen desde el menú.
+- Guardado del nombre del jugador, selección de dificultad.
 - Utilización de los datos del menú en la escena del juego.
-- Mostrar información al finalizar el juego (tiempo utilizado y nombre del jugador).
+- Mostrar información al finalizar el juego (nombre del jugador).
 
 
 
