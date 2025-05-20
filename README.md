@@ -31,6 +31,14 @@ Escena de Ajustes: Contiene un botón de "Volver" que permite regresar al menú 
 
 - **12. Implementación del límite de tiempo de 15 segundos y la condición de derrota por tiempo agotado.:** se ha implementado el game over por tiempo (15 segundos)
 
+- **13. musica de fondo al juego y menu.:** se implemento la musica en el menu y juego base
+
+- **14. efectos de sonido :** se implemento efecto de sonido de muerte kamikaze, salto y colision con los enemigos, y sonido de game over 
+
+- **15. meta y meu de Juego ganado.:** Se implemnto una meta que cuando el player llega este gana y aparece la pantalla de win
+
+- **13. temporisador en pantalla:** se implemento un temporisador en pantalla
+
 **Próximos Pasos:**
 
 - Creación de la meta a la que el jugador debe llegar.
