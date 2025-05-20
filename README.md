@@ -39,13 +39,11 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 
 - **18. Guardado del nombre del jugador:** se implemento el poder guardar el nombre del jugador, y se muestra en la pantalla de victoria.
 
+- **19. selección de dificultad:** se implemento un seleccionador de dificultad con un combo box. funcionando.
+
 **Próximos Pasos:**
 
 - Implementación de partículas para la colisión inicial con los enemigos.
-- selección de dificultad.
-- Utilización de los datos del menú en la escena del juego.
-- Mostrar información al finalizar el juego (nombre del jugador).
-
 
 
 *---------------------------------------------------------------------------------------------------------------------*
