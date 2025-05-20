@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/esena nueva.unity
     guid: 08f6af23d34a6e940aa6f505ead80ee1
-  - enabled: 0
-    path: Assets/Scenes/PrincipalScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
