@@ -45,6 +45,8 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 
 - **21. se implemento la lava** se implemento la lava, si toca al jugador, termina el juego.
 
+- **22. ajuste de velocidad y letras:** Neft a los bots porque en la dificultad dificil eran muy rapidos, ahora en facil van lento y a las letras le agregamos un contorno para que se note mejor en pantalla.
+
 
 *---------------------------------------------------------------------------------------------------------------------*
 
