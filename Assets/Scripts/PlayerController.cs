@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // Mantén este para otros elementos UI si los usas, aunque para Text será TMPro
-using TMPro; // ¡NUEVO! Necesario para trabajar con TextMeshPro
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,11 +17,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 verticalVelocity;
 
-    // --- Variables de la Cámara ---
+    // --- Variables de la Cï¿½mara ---
     public Camera MainCamera;
-    [Tooltip("Altura de la cámara sobre el jugador.")]
+    [Tooltip("Altura de la cï¿½mara sobre el jugador.")]
     public float cameraHeight = 10f;
-    [Tooltip("Suavidad con la que la cámara sigue al jugador (0-1).")]
+    [Tooltip("Suavidad con la que la cï¿½mara sigue al jugador (0-1).")]
     [Range(0f, 1f)]
     public float cameraFollowSpeed = 0.1f;
     private Vector3 cameraTargetPosition;
@@ -29,20 +29,21 @@ public class PlayerController : MonoBehaviour
     // --- Variables de Temporizador y Game Over ---
     public float tiempoDeJuego = 15f;
     private float tiempoRestante;
-    public GameObject pantallaGameOver;
-    public string mensajeGameOverPorTiempo = "¡Tiempo agotado!";
-    public TMP_Text textoGameOver;
-
+    public GameObject pantallaGameOver; // Panel/Canvas de Game Over
+    public string mensajeGameOverPorTiempo = "ï¿½Tiempo agotado!";
+    public TMP_Text textoGameOver;      // Texto TMP_Text en la pantalla de Game Over
     public TMP_Text temporizadorDisplay;
 
     private bool juegoTerminadoPorTiempo = false;
+    private bool juegoPerdidoPorLava = false; // ï¿½NUEVA BANDERA! Para la muerte por lava
 
     // --- Variables de Audio SFX ---
     public AudioSource audioSource;
     public AudioClip sonidoSalto;
     public AudioClip sonidoPerdidaTiempo;
+    public AudioClip sonidoMuerteLava; // ï¿½NUEVO! AudioClip para la muerte por lava
 
-    // --- Referencia a la Música de Fondo ---
+    // --- Referencia a la Mï¿½sica de Fondo ---
     public AudioSource musicaDeFondoSource;
 
     // --- Variables para la Victoria ---
@@ -53,9 +54,8 @@ public class PlayerController : MonoBehaviour
     private float tiempoInicioJuego;
     private bool juegoGanado = false;
 
-    // ¡CLAVE CORREGIDA! DEBE COINCIDIR CON LA DE MenuInicial.cs
-    private const string NombreJugadorPrefKey = "PlayerName"; //
-
+    // ï¿½CLAVE CORREGIDA! DEBE COINCIDIR CON LA DE MenuInicial.cs
+    private const string NombreJugadorPrefKey = "PlayerName";
 
     void Start()
     {
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             MainCamera = Camera.main;
             if (MainCamera == null)
             {
-                Debug.LogError("PlayerController: No se encontró la Main Camera en la escena. Asegúrate de que una cámara tenga el tag 'MainCamera'.");
+                Debug.LogError("PlayerController: No se encontrï¿½ la Main Camera en la escena. Asegï¿½rate de que una cï¿½mara tenga el tag 'MainCamera'.");
                 enabled = false;
                 return;
             }
@@ -74,11 +74,11 @@ public class PlayerController : MonoBehaviour
 
         if (audioSource == null)
         {
-            Debug.LogError("PlayerController: No se ha asignado el AudioSource para SFX en el Inspector. Arrastra el GameObject 'AudioPlayer' aquí.");
+            Debug.LogError("PlayerController: No se ha asignado el AudioSource para SFX en el Inspector. Arrastra el GameObject 'AudioPlayer' aquï¿½.");
         }
         if (musicaDeFondoSource == null)
         {
-            Debug.LogError("PlayerController: No se ha asignado el AudioSource de Música de Fondo en el Inspector. Arrastra el GameObject 'AudioPlayer' aquí.");
+            Debug.LogError("PlayerController: No se ha asignado el AudioSource de Mï¿½sica de Fondo en el Inspector. Arrastra el GameObject 'AudioPlayer' aquï¿½.");
         }
 
         if (MainCamera != null)
@@ -113,14 +113,20 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("PlayerController: No se ha asignado la pantalla de Victoria en el PlayerController.");
         }
 
-        // Verificar asignación de textos de victoria
+        // Verificar asignaciï¿½n de textos de victoria
         if (tiempoFinalText == null) Debug.LogError("PlayerController: No se ha asignado 'Tiempo Final Text' para la pantalla de victoria.");
         if (nombreJugadorFinalText == null) Debug.LogError("PlayerController: No se ha asignado 'Nombre Jugador Final Text' para la pantalla de victoria.");
+
+        // Inicializar banderas de juego perdido
+        juegoTerminadoPorTiempo = false;
+        juegoPerdidoPorLava = false;
+        juegoGanado = false;
     }
 
     void Update()
     {
-        if (!juegoTerminadoPorTiempo && !juegoGanado)
+        // Solo permitir el movimiento y la lï¿½gica del juego si NO se ha perdido/ganado
+        if (!juegoTerminadoPorTiempo && !juegoGanado && !juegoPerdidoPorLava) // ï¿½ACTUALIZADO!
         {
             horizontalMove = Input.GetAxis("Horizontal");
             verticalMove = Input.GetAxis("Vertical");
@@ -197,46 +203,95 @@ public class PlayerController : MonoBehaviour
 
     void TerminarJuegoPorTiempo()
     {
-        juegoTerminadoPorTiempo = true;
-        Debug.Log("¡Tiempo agotado! Game Over.");
+        juegoTerminadoPorTiempo = true; // Establece la bandera de Game Over por tiempo
+        Debug.Log("ï¿½Tiempo agotado! Game Over.");
 
+        // Detener la mï¿½sica de fondo
         if (musicaDeFondoSource != null)
         {
             musicaDeFondoSource.Stop();
         }
 
+        // Reproducir sonido de pï¿½rdida de tiempo
         if (audioSource != null && sonidoPerdidaTiempo != null)
         {
             audioSource.PlayOneShot(sonidoPerdidaTiempo);
         }
-        else if (audioSource == null) { Debug.LogWarning("PlayerController: AudioSource para SFX es nulo, no se puede reproducir sonido de pérdida por tiempo."); }
-        else if (sonidoPerdidaTiempo == null) { Debug.LogWarning("PlayerController: AudioClip de pérdida por tiempo es nulo, no se puede reproducir."); }
+        else if (audioSource == null) { Debug.LogWarning("PlayerController: AudioSource para SFX es nulo, no se puede reproducir sonido de pï¿½rdida por tiempo."); }
+        else if (sonidoPerdidaTiempo == null) { Debug.LogWarning("PlayerController: AudioClip de pï¿½rdida por tiempo es nulo, no se puede reproducir."); }
 
+        // Activar pantalla de Game Over
         if (pantallaGameOver != null)
         {
-            pantallaGameOver.SetActive(true); //
+            pantallaGameOver.SetActive(true);
             if (textoGameOver != null)
             {
-                textoGameOver.text = mensajeGameOverPorTiempo;
+                textoGameOver.text = mensajeGameOverPorTiempo; // Mensaje especï¿½fico para el Game Over por tiempo
             }
         }
 
-        enabled = false;
+        // Desactivar movimiento del jugador y detener enemigos
+        DesactivarMovimientoJugadorYEnemigos();
     }
 
+    // --- Lï¿½gica de Detecciï¿½n de Colisiï¿½n (Trigger) ---
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Meta") && !juegoGanado && !juegoTerminadoPorTiempo)
+        // Si el juego no ha terminado por tiempo ni por victoria ni por lava
+        if (!juegoTerminadoPorTiempo && !juegoGanado && !juegoPerdidoPorLava)
         {
-            Debug.Log("¡Meta alcanzada! Has ganado.");
-            TerminarJuegoPorVictoria();
+            if (other.CompareTag("Meta"))
+            {
+                Debug.Log("ï¿½Meta alcanzada! Has ganado.");
+                TerminarJuegoPorVictoria();
+            }
+            else if (other.CompareTag("Lava")) // ï¿½NUEVO! Detecciï¿½n de la lava
+            {
+                Debug.Log("ï¿½El jugador ha caï¿½do en la lava! Activando Game Over.");
+                MorirPorLava();
+            }
         }
     }
+
+    // --- NUEVO Mï¿½TODO: Muerte por Lava ---
+    void MorirPorLava()
+    {
+        juegoPerdidoPorLava = true; // Establece la bandera de Game Over por lava
+        Debug.Log("ï¿½Jugador muerto por lava! Game Over.");
+
+        // Detener la mï¿½sica de fondo
+        if (musicaDeFondoSource != null)
+        {
+            musicaDeFondoSource.Stop();
+        }
+
+        // Reproducir sonido de muerte por lava
+        if (audioSource != null && sonidoMuerteLava != null) // Usamos el nuevo AudioClip
+        {
+            audioSource.PlayOneShot(sonidoMuerteLava);
+        }
+        else if (audioSource == null) { Debug.LogWarning("PlayerController: AudioSource para SFX es nulo, no se puede reproducir sonido de muerte por lava."); }
+        else if (sonidoMuerteLava == null) { Debug.LogWarning("PlayerController: AudioClip de muerte por lava es nulo, no se puede reproducir."); }
+
+        // Activar pantalla de Game Over
+        if (pantallaGameOver != null)
+        {
+            pantallaGameOver.SetActive(true);
+            if (textoGameOver != null)
+            {
+                textoGameOver.text = "ï¿½Caï¿½ste en la lava!"; // Mensaje especï¿½fico para la lava
+            }
+        }
+
+        // Desactivar movimiento del jugador y detener enemigos
+        DesactivarMovimientoJugadorYEnemigos();
+    }
+
 
     void TerminarJuegoPorVictoria()
     {
         juegoGanado = true;
-        enabled = false; // Desactiva este script para detener el movimiento y la lógica del juego
+        Debug.Log("ï¿½Juego ganado!");
 
         if (musicaDeFondoSource != null)
         {
@@ -246,13 +301,12 @@ public class PlayerController : MonoBehaviour
         float tiempoTranscurrido = Time.time - tiempoInicioJuego;
         Debug.Log("Tiempo utilizado: " + tiempoTranscurrido.ToString("F2") + " segundos.");
 
-        // Carga el nombre del jugador usando la clave corregida
-        string nombreJugador = PlayerPrefs.GetString(NombreJugadorPrefKey, "Jugador Desconocido"); //
-        Debug.Log("DEBUG (PlayerController): Nombre cargado para victoria: " + nombreJugador); // Log para verificar la carga
+        string nombreJugador = PlayerPrefs.GetString(NombreJugadorPrefKey, "Jugador Desconocido");
+        Debug.Log("DEBUG (PlayerController): Nombre cargado para victoria: " + nombreJugador);
 
         if (pantallaVictoria != null)
         {
-            pantallaVictoria.SetActive(true); // Activa el panel de victoria
+            pantallaVictoria.SetActive(true);
 
             if (tiempoFinalText != null)
             {
@@ -260,12 +314,56 @@ public class PlayerController : MonoBehaviour
             }
             if (nombreJugadorFinalText != null)
             {
-                nombreJugadorFinalText.text = "Jugador: " + nombreJugador; // Asigna el nombre al texto
+                nombreJugadorFinalText.text = "Jugador: " + nombreJugador;
             }
         }
         else
         {
-            Debug.LogError("PlayerController: La pantalla de victoria (GameObject) no está asignada en el Inspector.");
+            Debug.LogError("PlayerController: La pantalla de victoria (GameObject) no estï¿½ asignada en el Inspector.");
         }
+
+        // Desactivar movimiento del jugador y detener enemigos
+        DesactivarMovimientoJugadorYEnemigos();
+    }
+
+    // --- NUEVO Mï¿½TODO CONSOLIDADO para detener el juego ---
+    void DesactivarMovimientoJugadorYEnemigos()
+    {
+        // Desactiva el script PlayerController para detener el movimiento del jugador
+        enabled = false;
+        Debug.Log("Movimiento del jugador desactivado.");
+
+        // Opcional: si el CharacterController debe deshabilitarse o el Rigidbody (si tuvieras uno)
+        if (player != null)
+        {
+            player.enabled = false;
+        }
+
+        // Detener a todos los agentes NavMesh (enemigos)
+        UnityEngine.AI.NavMeshAgent[] todosAgentes = FindObjectsOfType<UnityEngine.AI.NavMeshAgent>();
+        foreach (UnityEngine.AI.NavMeshAgent agenteEnemigo in todosAgentes)
+        {
+            if (agenteEnemigo != null && agenteEnemigo.enabled)
+            {
+                agenteEnemigo.isStopped = true;
+                agenteEnemigo.acceleration = 0;
+                agenteEnemigo.angularSpeed = 0;
+                Debug.Log($"Enemigo {agenteEnemigo.gameObject.name} detenido.");
+            }
+        }
+    }
+
+
+    // Mï¿½todo para reiniciar el juego, asociado a un botï¿½n UI.
+    // Deberï¿½a ser pï¿½blico para ser llamado desde un botï¿½n.
+    public void ReiniciarJuego()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Carga la escena actual para reiniciar
+    }
+
+    // Mï¿½todo para volver al menï¿½, asociado a un botï¿½n UI.
+    public void VolverAlMenu()
+    {
+        SceneManager.LoadScene("MenuScene"); // Asegï¿½rate de que "MenuScene" sea el nombre correcto de tu escena de menï¿½
     }
 }

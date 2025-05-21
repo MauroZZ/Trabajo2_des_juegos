@@ -41,10 +41,9 @@ Este proyecto de desarrollo de juegos en Unity tiene como objetivo crear un jueg
 
 - **19. selección de dificultad:** se implemento un seleccionador de dificultad con un combo box. funcionando.
 
-- **20. particulas** se implemento particulas
-**Próximos Pasos:**
+- **20. particulas** se implemento partículas
 
-- Implementación de partículas para la colisión inicial con los enemigos.
+- **21. se implemento la lava** se implemento la lava, si toca al jugador, termina el juego.
 
 
 *---------------------------------------------------------------------------------------------------------------------*
